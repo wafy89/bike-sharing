@@ -1,0 +1,29 @@
+{
+  "name": "bike-sharing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client-install"  : "cd client && npm install",
+    "server-install"  : "cd server && npm install",
+    "client-start" : "cd client && npm start",
+    "server-start" : "cd server && npm start",
+    "install-deps": "concurrently \"npm run server-install\" \"npm run client-install\"",
+    "start": "concurrently \"npm run server-start\" \"npm run client-start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wafy89/bike-sharing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wafy89/bike-sharing/issues"
+  },
+  "homepage": "https://github.com/wafy89/bike-sharing#readme",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
