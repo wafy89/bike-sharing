@@ -1,0 +1,85 @@
+.wrapper {
+	position: fixed;
+	z-index: 15;
+	top: 0;
+	height: 0;
+	width: 100vw;
+	height: 100vh;
+	left: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	animation: open-wrapper 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+.wrapper.close {
+	animation: open-wrapper 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) reverse both;
+}
+
+@keyframes open-wrapper {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.card {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	min-height: 500px;
+	border-radius: 12px;
+	padding: 12px;
+	background-color: #fff;
+	display: flex;
+}
+
+a {
+	text-decoration: none;
+}
+
+.signup {
+	display: block;
+	color: rgb(136, 255, 0);
+	font-family: 'Raleway', sans-serif;
+	font-size: 10pt;
+	margin-top: 8px;
+	text-align: center;
+}
+
+.form-content {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+.form-field {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.form-actions {
+	display: flex;
+	flex-direction: column;
+	margin-top: 24px;
+}
+.form-divider {
+	background-color: grey;
+	height: 1px;
+	width: 100%;
+	margin-bottom: 12px;
+}
+.form-content-input {
+	background: none;
+	border: none;
+	outline: none;
+	padding: 14px;
+}
+.underline-title {
+	background: -webkit-linear-gradient(right, #a6f77b, #2ec06f);
+	height: 2px;
+	margin: -1.1rem auto 0 auto;
+	width: 89px;
+}

@@ -1,0 +1,9 @@
+.popup {
+	display: flex;
+	flex-direction: column;
+	line-height: normal;
+}
+
+.popup-details-sub_header {
+	color: rgb(85, 85, 85);
+}
