@@ -22,6 +22,7 @@ function App() {
 					/>
 				))}
 			</Map>
+			{isOpened && <Login setIsOpen={setIsOpened} />}
 		</>
 	);
 }

@@ -53,6 +53,7 @@
 	background-color: #fff;
 	display: flex;
 }
+
 .form {
 	display: flex;
 	flex-direction: column;
@@ -89,26 +90,20 @@
 	font-size: 16px;
 	width: 60%;
 }
-.underline-title {
-	background: -webkit-linear-gradient(right, #a6f77b, #2ec06f);
-	height: 2px;
-	margin: -1.1rem auto 0 auto;
-	width: 89px;
-}
+
 .show-icon {
 	position: absolute;
 	right: 12px;
 }
 
-a {
+.regisler {
 	text-decoration: none;
-}
-
-.signup {
 	display: block;
-	color: rgb(136, 255, 0);
+	color: rgb(118, 179, 49);
 	font-family: 'Raleway', sans-serif;
 	font-size: 10pt;
 	margin-top: 8px;
 	text-align: center;
+	cursor: pointer;
+	font-weight: 400;
 }

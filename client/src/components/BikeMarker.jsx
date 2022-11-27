@@ -20,38 +20,29 @@ const greyIcon = new Icon({
 	iconSize: [30, 30],
 });
 
-function BikeMarker({ bike }) {
-	const handleButtonClick = () => {
-		closePopup();
-	};
-
-	const handleUserKeyPress = (event) => {
+export default function BikeMarker({ bike }) {
+	const handleESCPress = (event) => {
 		const { keyCode } = event;
 		if (keyCode === 27) {
 			closePopup();
-		} else if (13) {
-			handleButtonClick();
 		}
 	};
 
 	// close popup functionality
 	const popupRef = useRef(null);
-	const buttonRef = useRef(null);
+	const closePopup = () => {
+		if (!popupRef.current || !popupRef.current._closeButton) return;
+		popupRef.current._closeButton.click();
+	};
 
 	useEffect(() => {
 		// close popup with escape key
-		window.addEventListener('keydown', handleUserKeyPress);
-		console.log({ buttonRef });
-		buttonRef.current && buttonRef.current.focus();
+		window.addEventListener('keydown', handleESCPress);
 		//cleanup
 		return () => {
-			window.removeEventListener('keydown', handleUserKeyPress);
+			window.removeEventListener('keydown', handleESCPress);
 		};
-	}, [buttonRef.current]);
-	const closePopup = () => {
-		if (!popupRef.current._closeButton) return;
-		popupRef.current._closeButton.click();
-	};
+	}, []);
 
 	return (
 		<Marker
@@ -59,11 +50,6 @@ function BikeMarker({ bike }) {
 			icon={bike.rented ? greyIcon : redIcon}
 		>
 			<Popup ref={popupRef}>
-				<input
-					tabIndex={0}
-					type="hidden"
-					ref={buttonRef}
-				/>
 				<div className="popup">
 					<section className="popup-details">
 						<h1 className="popup-details-header">{`Bike  >${bike.name}<`}</h1>
@@ -74,15 +60,12 @@ function BikeMarker({ bike }) {
 							<li>Adjust suddle height and happy ride</li>
 						</ol>
 					</section>
-
 					<Button
 						title={bike.rented ? 'Return Bike' : 'Rent Bike'}
-						onClick={handleButtonClick}
+						onClick={closePopup}
 					/>
 				</div>
 			</Popup>
 		</Marker>
 	);
 }
-
-export default BikeMarker;
