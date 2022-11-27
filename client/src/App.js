@@ -4,11 +4,16 @@ import BikeMarker from './components/BikeMarker';
 import Login from './components/Login';
 import { locations } from './mocks/locations';
 import { useState } from 'react';
+import Header from './components/Header';
 
 function App() {
-	const [isOpened, setIsOpened] = useState(true);
+	const [isOpened, setIsOpened] = useState(false);
 	return (
 		<>
+			<Header
+				setIsOpened={setIsOpened}
+				className="menu"
+			/>
 			<Map>
 				{locations.map((bike) => (
 					<BikeMarker
@@ -17,13 +22,6 @@ function App() {
 					/>
 				))}
 			</Map>
-			<button
-				onClick={() => setIsOpened(!isOpened)}
-				className="menu"
-			>
-				OPEN
-			</button>
-			{isOpened && <Login />}
 		</>
 	);
 }

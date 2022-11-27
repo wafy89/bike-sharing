@@ -1,6 +1,5 @@
 import React from 'react';
 import { TileLayer, MapContainer } from 'react-leaflet';
-
 function Map({ children }) {
 	return (
 		<MapContainer

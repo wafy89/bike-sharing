@@ -3,9 +3,3 @@
 	height: 100vh;
 	z-index: 5;
 }
-.menu {
-	position: fixed;
-	right: 50px;
-	top: 50px;
-	z-index: 150;
-}

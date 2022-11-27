@@ -1,5 +1,5 @@
 import '../styles/BikeMarker.css';
-import { useRef } from 'react';
+import { useRef, useEffect, createRef } from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import redMarkerSvg from '../assets/redMarkerIcon.svg';
@@ -21,15 +21,36 @@ const greyIcon = new Icon({
 });
 
 function BikeMarker({ bike }) {
-	// close popup functionality
-	const popupRef = useRef(null);
-	const closePopup = () => {
-		if (!popupRef.current) return;
-		popupRef.current._closeButton.click();
+	const handleButtonClick = () => {
+		closePopup();
 	};
 
-	const handleClick = () => {
-		closePopup();
+	const handleUserKeyPress = (event) => {
+		const { keyCode } = event;
+		if (keyCode === 27) {
+			closePopup();
+		} else if (13) {
+			handleButtonClick();
+		}
+	};
+
+	// close popup functionality
+	const popupRef = useRef(null);
+	const buttonRef = useRef(null);
+
+	useEffect(() => {
+		// close popup with escape key
+		window.addEventListener('keydown', handleUserKeyPress);
+		console.log({ buttonRef });
+		buttonRef.current && buttonRef.current.focus();
+		//cleanup
+		return () => {
+			window.removeEventListener('keydown', handleUserKeyPress);
+		};
+	}, [buttonRef.current]);
+	const closePopup = () => {
+		if (!popupRef.current._closeButton) return;
+		popupRef.current._closeButton.click();
 	};
 
 	return (
@@ -38,6 +59,11 @@ function BikeMarker({ bike }) {
 			icon={bike.rented ? greyIcon : redIcon}
 		>
 			<Popup ref={popupRef}>
+				<input
+					tabIndex={0}
+					type="hidden"
+					ref={buttonRef}
+				/>
 				<div className="popup">
 					<section className="popup-details">
 						<h1 className="popup-details-header">{`Bike  >${bike.name}<`}</h1>
@@ -48,9 +74,10 @@ function BikeMarker({ bike }) {
 							<li>Adjust suddle height and happy ride</li>
 						</ol>
 					</section>
+
 					<Button
 						title={bike.rented ? 'Return Bike' : 'Rent Bike'}
-						onClick={handleClick}
+						onClick={handleButtonClick}
 					/>
 				</div>
 			</Popup>
