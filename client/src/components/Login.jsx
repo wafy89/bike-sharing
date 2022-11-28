@@ -1,5 +1,6 @@
 import '../styles/Login.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Button from './Button';
 // ICONS
 import { BiShowAlt } from 'react-icons/bi';
@@ -9,6 +10,9 @@ function Login({ isOpen, setIsOpen }) {
 	const [isRegister, setIsRegister] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 	const [closeModule, setCloseModule] = useState(false);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
 
 	const handelClosing = () => {
 		setTimeout(() => {
@@ -18,30 +22,20 @@ function Login({ isOpen, setIsOpen }) {
 	};
 
 	const handelSubmit = (e) => {
+		const route = isRegister ? 'register' : 'login';
 		e.preventDefault();
+		axios
+			.post(`http://localhost:8080/auth/${route}`, { email, password })
+			.then((response) => {
+				console.log(response.data);
+				handelClosing();
+			})
+			.catch((err) => {
+				setError(err.message);
+			});
+
 		handelClosing();
 	};
-
-	// const handleUserKeyPress = (event) => {
-	// 	const { keyCode } = event;
-	// 	if (keyCode === 27) {
-	// 		handelClosing();
-	// 	} else if (13) {
-	// 		handelSubmit();
-	// 	}
-	// };
-	// const buttonRef = useRef(null);
-
-	// useEffect(() => {
-	// 	// close popup with escape key
-	// 	window.addEventListener('keydown', handleUserKeyPress);
-	// 	console.log({ buttonRef });
-	// 	buttonRef.current && buttonRef.current.focus();
-	// 	//cleanup
-	// 	return () => {
-	// 		window.removeEventListener('keydown', handleUserKeyPress);
-	// 	};
-	// }, []);
 
 	const handleESCPress = (event) => {
 		const { keyCode } = event;
@@ -56,7 +50,7 @@ function Login({ isOpen, setIsOpen }) {
 		return () => {
 			window.removeEventListener('keydown', handleESCPress);
 		};
-	}, []);
+	}, [handleESCPress]);
 	return (
 		<div className={`wrapper ${closeModule ? 'close' : 'open'}`}>
 			<div className="card">
@@ -75,7 +69,7 @@ function Login({ isOpen, setIsOpen }) {
 						<div className="form-field">
 							<label
 								className="form-content-label"
-								htmlFor="user-email"
+								htmlFor="email"
 							>
 								Email:
 							</label>
@@ -86,6 +80,8 @@ function Login({ isOpen, setIsOpen }) {
 								name="email"
 								required
 								autoFocus={true}
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
 						<div className="form-divider" />
@@ -101,7 +97,8 @@ function Login({ isOpen, setIsOpen }) {
 								className="form-content-input"
 								type={showPassword ? 'text' : 'password'}
 								name="password"
-								required
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
 							/>
 							<BiShowAlt
 								onClick={() => {
@@ -114,6 +111,7 @@ function Login({ isOpen, setIsOpen }) {
 						</div>
 						<div className="form-divider" />
 					</div>
+					{error && <div>{error}</div>}
 					<div className="form-actions">
 						<Button title={isRegister ? 'Register' : 'Login'} />
 						<a

@@ -5,6 +5,7 @@ import { Icon } from 'leaflet';
 import redMarkerSvg from '../assets/redMarkerIcon.svg';
 import greyMarkerSvg from '../assets/greyMarkerIcon.svg';
 import Button from './Button';
+import axios from 'axios';
 
 // generate Icons
 const redIcon = new Icon({
@@ -20,7 +21,7 @@ const greyIcon = new Icon({
 	iconSize: [30, 30],
 });
 
-export default function BikeMarker({ bike }) {
+export default function BikeMarker({ bike, bikeID }) {
 	const handleESCPress = (event) => {
 		const { keyCode } = event;
 		if (keyCode === 27) {
@@ -44,6 +45,20 @@ export default function BikeMarker({ bike }) {
 		};
 	}, []);
 
+	const handleButtonClick = () => {
+		axios
+			.post(`http://localhost:8080/rent/${bikeID}`)
+			.then((response) => {
+				console.log(response.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => {
+				closePopup();
+			});
+	};
+
 	return (
 		<Marker
 			position={[bike.lat, bike.lng]}
@@ -62,7 +77,7 @@ export default function BikeMarker({ bike }) {
 					</section>
 					<Button
 						title={bike.rented ? 'Return Bike' : 'Rent Bike'}
-						onClick={closePopup}
+						onClick={handleButtonClick}
 					/>
 				</div>
 			</Popup>
