@@ -6,13 +6,12 @@ import Button from './Button';
 import { BiShowAlt } from 'react-icons/bi';
 import { AiFillCloseCircle } from 'react-icons/ai';
 
-function Login({ isOpen, setIsOpen }) {
+function Login({ isOpen, setIsOpen, setLoggedIn, error, setError }) {
 	const [isRegister, setIsRegister] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 	const [closeModule, setCloseModule] = useState(false);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
 
 	const handelClosing = () => {
 		setTimeout(() => {
@@ -27,7 +26,7 @@ function Login({ isOpen, setIsOpen }) {
 		axios
 			.post(`http://localhost:8080/auth/${route}`, { email, password })
 			.then((response) => {
-				console.log(response.data);
+				if (response.data) setLoggedIn(true);
 				handelClosing();
 			})
 			.catch((err) => {
@@ -111,7 +110,7 @@ function Login({ isOpen, setIsOpen }) {
 						</div>
 						<div className="form-divider" />
 					</div>
-					{error && <div>{error}</div>}
+					{error && <p>{error}</p>}
 					<div className="form-actions">
 						<Button title={isRegister ? 'Register' : 'Login'} />
 						<a

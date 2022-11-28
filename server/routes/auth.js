@@ -37,5 +37,12 @@ router.post('/register', async (req, res) => {
 		res.status(201).send(newUser);
 	}
 });
+router.delete('/logout', (req, res) => {
+	console.log('logoout');
+	if (req.session.user) {
+		req.session.destroy();
+		res.sendStatus(204);
+	}
+});
 
 module.exports = router;

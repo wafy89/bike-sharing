@@ -11,7 +11,12 @@ const baseURL = 'http://localhost:8080/';
 
 function App() {
 	const [bikes, setBikes] = useState([]);
+	const [isOpened, setIsOpened] = useState(false);
+	const [loggedIn, setLoggedIn] = useState(false);
+	const [error, setError] = useState('');
+
 	useEffect(() => {
+		// fetch all bikes
 		axios
 			.get('http://localhost:8080/bikes')
 			.then((response) => {
@@ -22,12 +27,15 @@ function App() {
 				console.log(err);
 			});
 	}, []);
-	const [isOpened, setIsOpened] = useState(false);
+
 	return (
 		<>
 			<Header
 				setIsOpened={setIsOpened}
+				loggedIn={loggedIn}
 				className="menu"
+				setError={setError}
+				setLoggedIn={setLoggedIn}
 			/>
 			<Map>
 				{bikes.length &&
@@ -39,7 +47,12 @@ function App() {
 						/>
 					))}
 			</Map>
-			{isOpened && <Login setIsOpen={setIsOpened} />}
+			{isOpened && (
+				<Login
+					setLoggedIn={setLoggedIn}
+					setIsOpen={setIsOpened}
+				/>
+			)}
 		</>
 	);
 }
