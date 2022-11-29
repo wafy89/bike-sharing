@@ -20,18 +20,29 @@ mongoose
 		server.listen(PORT, () => console.log('server running...'));
 
 		server.use(express.json());
-		server.use(cors());
+
+		server.use(
+			cors({
+				origin: 'http://localhost:3000',
+				methods: ['POST', 'PUT', 'GET', 'DELETE'],
+				credentials: true,
+			})
+		);
 		server.use(
 			session({
 				secret: SESSION_SECRET,
 				saveUninitialized: false,
 				resave: false,
 				cookie: {
-					maxAge: 6000 * 60 * 24,
+					secure: false,
+					maxAge: 60000 * 60 * 24, // one day
 				},
 			})
 		);
-
+		server.use((req, res, next) => {
+			console.log(req.session);
+			next();
+		});
 		// GET ALL BIKES
 		server.get('/bikes', async (req, res) => {
 			const bikes = await Bike.find();
@@ -42,10 +53,6 @@ mongoose
 		server.use('/auth', authRoute);
 
 		//
-		server.use((req, res, next) => {
-			if (req.session.user) next();
-			else res.send(401);
-		});
 
 		server.post('/rent/:bikeId', (req, res) => {
 			const { bikeId } = req.params;
@@ -71,11 +78,6 @@ mongoose
 				req.session.user.rentedBike = bikeId;
 				res.send(bike);
 			}
-		});
-
-		server.use((req, res, next) => {
-			if (!req.session.user) next();
-			else res.send(401);
 		});
 	})
 	.catch((err) => console.error(err));

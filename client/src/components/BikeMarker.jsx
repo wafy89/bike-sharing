@@ -1,11 +1,11 @@
 import '../styles/BikeMarker.css';
-import { useRef, useEffect, createRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import redMarkerSvg from '../assets/redMarkerIcon.svg';
 import greyMarkerSvg from '../assets/greyMarkerIcon.svg';
 import Button from './Button';
-import axios from 'axios';
+import { rentBike } from '../utils/api';
 
 // generate Icons
 const redIcon = new Icon({
@@ -45,9 +45,8 @@ export default function BikeMarker({ bike, bikeID }) {
 		};
 	}, []);
 
-	const handleButtonClick = () => {
-		axios
-			.post(`http://localhost:8080/rent/${bikeID}`)
+	const handleButtonClick = (bikeId) => {
+		rentBike(bikeId)
 			.then((response) => {
 				console.log(response.data);
 			})
@@ -77,7 +76,7 @@ export default function BikeMarker({ bike, bikeID }) {
 					</section>
 					<Button
 						title={bike.rented ? 'Return Bike' : 'Rent Bike'}
-						onClick={handleButtonClick}
+						onClick={() => handleButtonClick(bike._id)}
 					/>
 				</div>
 			</Popup>

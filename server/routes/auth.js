@@ -11,6 +11,7 @@ router.post('/login', async (req, res) => {
 
 	// get user
 	const user = await User.findOne({ email });
+	console.log({ user });
 	if (!user) return res.status(401).send('Email is incorrect');
 
 	//check password
@@ -38,8 +39,8 @@ router.post('/register', async (req, res) => {
 	}
 });
 router.delete('/logout', (req, res) => {
-	if (req.session) {
-		req.session.destroy();
+	if (req.session && req.session.user) {
+		req.session.user = null;
 		res.status(204).send('deleted');
 	}
 });
