@@ -13,7 +13,7 @@ function App() {
 	const [error, setError] = useState('');
 
 	useEffect(() => {
-		getAllBikes
+		getAllBikes()
 			.then((data) => {
 				setBikes(data);
 			})

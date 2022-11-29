@@ -5,7 +5,7 @@ import { logout } from '../utils/api';
 
 function Header({ setIsOpened, loggedIn, setLoggedIn, setError }) {
 	const handelLogout = () => {
-		logout
+		logout()
 			.then(() => {
 				setLoggedIn(false);
 			})

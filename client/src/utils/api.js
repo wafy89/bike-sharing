@@ -6,22 +6,24 @@ const axios = axiosModule.create({
 	withCredentials: true,
 });
 
-export const getAllBikes = new Promise((resolve, reject) =>
-	axios
-		.get('bikes')
-		.then((response) => {
-			resolve(response.data);
-		})
-		.catch((err) => {
-			reject(err.response.data);
-		})
-);
+export const getAllBikes = () =>
+	new Promise((resolve, reject) => {
+		axios
+			.get('bikes')
+			.then((response) => {
+				resolve(response.data);
+			})
+			.catch((err) => {
+				reject(err.response.data);
+			});
+	});
+
 export const logout = () =>
 	new Promise((resolve, reject) =>
 		axios
 			.delete('/auth/logout')
-			.then((response) => {
-				resolve(response);
+			.then(() => {
+				resolve();
 			})
 			.catch((err) => {
 				reject(err.response.data);
@@ -29,16 +31,16 @@ export const logout = () =>
 	);
 
 export const authenticate = ({ requestType, email, password }) =>
-	new Promise((resolve, reject) =>
+	new Promise((resolve, reject) => {
 		axios
 			.post(`/auth/${requestType}`, { email, password })
 			.then((response) => {
-				if (response.data) resolve(response.data);
+				if (response) resolve();
 			})
 			.catch((err) => {
 				reject(err.response.data);
-			})
-	);
+			});
+	});
 
 export const rentBike = (bikeID) =>
 	new Promise((resolve, reject) =>
