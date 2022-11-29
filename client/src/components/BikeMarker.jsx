@@ -67,7 +67,7 @@ export default function BikeMarker({ bike, bikeID }) {
 			<Popup ref={popupRef}>
 				<div className="popup">
 					<section className="popup-details">
-						<h1 className="popup-details-header">{`Bike  >${bike.name}<`}</h1>
+						<h2 className="popup-details-header">{`Bike  >${bike.name}<`}</h2>
 						<p className="popup-details-sub_header">This bike is for rent</p>
 						<ol>
 							<li>Click on Rent Bike</li>

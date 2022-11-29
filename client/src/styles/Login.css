@@ -9,13 +9,6 @@
 	bottom: 0;
 	background-color: rgba(0, 0, 0, 0.7);
 }
-.wrapper-closer {
-	position: absolute;
-	right: 12px;
-	top: 12px;
-	background: none;
-	border: none;
-}
 
 .wrapper.open {
 	animation: open-wrapper 0.6s ease-in-out both;
@@ -48,7 +41,7 @@
 	transform: translate(-50%, -50%);
 	width: 300px;
 	min-height: 400px;
-	border-radius: 12px;
+	border-radius: 2px;
 	padding: 24px;
 	background-color: #fff;
 	display: flex;
@@ -56,54 +49,82 @@
 
 .form {
 	display: flex;
-	flex-direction: column;
 	justify-content: flex-start;
+	flex-wrap: wrap;
 	flex-grow: 1;
 }
+.form-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	width: 100%;
+}
+.form-header h2 {
+	font-size: 32px;
+	font-weight: 400;
+	color: #5e5159;
+}
+.form-discription {
+	color: #5e5159;
+}
+.form-close {
+	display: block;
+	font-size: 22px;
+	color: #5e5159;
+}
+
 .form-content {
-	margin-top: 48px;
 	flex-grow: 1;
 }
 
 .form-field {
+	border-radius: 2px;
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
+	align-items: center;
+	height: 40px;
+	padding: 2px;
+	margin: 10px 0;
+	background-color: #b39bab;
 	position: relative;
 }
-.form-actions {
+
+.form-content-label {
 	display: flex;
-	flex-direction: column;
-	margin: 24px 0;
-}
-.form-divider {
-	background-color: grey;
-	height: 1px;
-	width: 100%;
-	margin-bottom: 12px;
+	justify-content: center;
+	align-items: center;
+	width: 40px;
+	font-size: 22px;
+	height: 100%;
+	color: rgb(255, 255, 255);
 }
 .form-content-input {
 	background: none;
+	background-color: rgb(255, 255, 255);
 	border: none;
 	outline: none;
-	padding: 14px;
-	font-size: 16px;
-	width: 60%;
+	font-size: 18px;
+	flex: 1;
+	height: 100%;
+	padding-left: 16px;
+	color: #5e5159;
 }
-
+.form-actions {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
 .show-icon {
 	position: absolute;
 	right: 12px;
 }
 
-.regisler {
-	text-decoration: none;
-	display: block;
-	color: rgb(118, 179, 49);
-	font-family: 'Raleway', sans-serif;
+.regisler-link {
+	color: #5e5159;
+	text-decoration: underline;
 	font-size: 10pt;
 	margin-top: 8px;
 	text-align: center;
 	cursor: pointer;
-	font-weight: 400;
+	font-weight: 500;
 }

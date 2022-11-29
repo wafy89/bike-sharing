@@ -3,7 +3,15 @@
 	flex-direction: column;
 	line-height: normal;
 }
-
+.popup-details-header {
+	line-height: 50px;
+	color: #5e5159;
+	margin: 0;
+}
 .popup-details-sub_header {
-	color: rgb(85, 85, 85);
+	color: #5e5159;
+}
+.popup ol {
+	line-height: 20px;
+	color: #5e5159;
 }

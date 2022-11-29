@@ -1,19 +1,19 @@
 .button {
-	padding: 8px 16px;
-	margin-bottom: 12px;
-	border-radius: 12px;
-	border: none;
-	background-color: rgb(136, 255, 0);
-	color: #fff;
+	border-radius: 2px;
+	margin: 12px 0;
+	border: 2px solid #5e5159;
+	background-color: white;
+	color: #5e5159;
 	font-size: 20px;
-	font-weight: 600;
+	font-weight: 500;
 	min-width: 100px;
+	padding: 12px;
 }
 
 .button:active {
-	box-shadow: 0px 0px 5px 1px rgba(136, 255, 0, 0.5);
+	box-shadow: 0px 0px 1px #5e5159;
 }
-
 .button:hover {
-	background-color: rgb(156, 255, 43);
+	background-color: #5e5159;
+	color: white;
 }

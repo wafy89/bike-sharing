@@ -4,7 +4,7 @@ import axios from 'axios';
 import Button from './Button';
 // ICONS
 import { BiShowAlt } from 'react-icons/bi';
-import { AiFillCloseCircle } from 'react-icons/ai';
+import { TfiClose, TfiEmail, TfiLock } from 'react-icons/tfi';
 
 function Login({ isOpen, setIsOpen, setLoggedIn, error, setError }) {
 	const [isRegister, setIsRegister] = useState(false);
@@ -53,43 +53,49 @@ function Login({ isOpen, setIsOpen, setLoggedIn, error, setError }) {
 	return (
 		<div className={`wrapper ${closeModule ? 'close' : 'open'}`}>
 			<div className="card">
-				<AiFillCloseCircle
-					onClick={handelClosing}
-					size="24px"
-					color="red"
-					className="wrapper-closer"
-				/>
 				<form
 					className="form"
 					onSubmit={handelSubmit}
 				>
-					<h3 className="form-header">{isRegister ? 'Register' : 'Login'}</h3>
+					<div className="form-header">
+						<h2>{isRegister ? 'Register' : 'Login'}</h2>
+						<TfiClose
+							onClick={handelClosing}
+							className="form-close"
+						/>
+					</div>
+					<p className="form-discription">
+						{isRegister
+							? 'Use your email and password to register'
+							: 'Use your email and password to login.'}
+					</p>
 					<div className="form-content">
 						<div className="form-field">
 							<label
 								className="form-content-label"
 								htmlFor="email"
 							>
-								Email:
+								<TfiEmail />
 							</label>
 							<input
 								id="user-email"
 								className="form-content-input"
 								type="email"
 								name="email"
+								placeholder="EMAIL"
 								required
 								autoFocus={true}
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
-						<div className="form-divider" />
+
 						<div className="form-field">
 							<label
 								className="form-content-label"
 								htmlFor="user-password"
 							>
-								Password:
+								<TfiLock />
 							</label>
 							<input
 								id="user-password"
@@ -97,28 +103,32 @@ function Login({ isOpen, setIsOpen, setLoggedIn, error, setError }) {
 								type={showPassword ? 'text' : 'password'}
 								name="password"
 								value={password}
+								placeholder="PASWORD"
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 							<BiShowAlt
 								onClick={() => {
 									setShowPassword(!showPassword);
 								}}
-								color="grey"
+								color="#b39bab"
 								size={25}
 								className="show-icon"
 							/>
 						</div>
-						<div className="form-divider" />
 					</div>
 					{error && <p>{error}</p>}
 					<div className="form-actions">
-						<Button title={isRegister ? 'Register' : 'Login'} />
+						<Button title={isRegister ? 'Signup' : 'Login'} />
 						<a
 							onClick={() => setIsRegister(!isRegister)}
-							className="regisler"
+							className="regisler-link"
 							accessKey="s"
 						>
-							{`Click or ( alt + s ) to ${isRegister ? 'login' : 'register'}`}
+							{`${
+								isRegister
+									? 'Have account already? login.'
+									: 'No account yet? regitrer.'
+							}`}
 						</a>
 					</div>
 				</form>
