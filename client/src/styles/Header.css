@@ -3,21 +3,28 @@
 	right: 0;
 	top: 0;
 	z-index: 150;
-	width: 150px;
 	background-color: white;
-	border-radius: 0 0 0 24px;
-	padding: 10px;
+	border-radius: 0 0 0 5px;
+	padding-left: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	color: #5e5159;
+	font-size: 36px;
+	height: 80px;
+	width: 100%;
+}
+.header p {
+	padding: 10px;
 }
 
-.header-image {
-	display: block;
-	width: 100px;
-}
-
-.header-button {
+.header-icon {
+	padding: 0 18px;
+	height: 100%;
 	background: none;
 	border: none;
+	font-size: 36px;
+	color: white;
+	background-color: #5e5159;
+	border-left: solid 3px #5e5159;
 }

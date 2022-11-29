@@ -1,16 +1,18 @@
 import '../styles/Header.css';
 import Logo from '../assets/Logo.png';
-import { FaUserCircle } from 'react-icons/fa';
-import { RiLogoutCircleRLine } from 'react-icons/ri';
+import { AiOutlineUser } from 'react-icons/ai';
+import { TbLogout } from 'react-icons/tb';
+
 import axios from 'axios';
 
 function Header({ setIsOpened, loggedIn, setLoggedIn, setError }) {
 	const handelLogout = () => {
+		console.log('logout');
 		axios
 			.delete(`http://localhost:8080/auth/logout`)
-			.then((response) => {
+			.then((re) => {
+				console.log('response', re);
 				setLoggedIn(false);
-				setIsOpened(false);
 			})
 			.catch((err) => {
 				setError(err.message);
@@ -18,31 +20,22 @@ function Header({ setIsOpened, loggedIn, setLoggedIn, setError }) {
 	};
 	return (
 		<div className="header">
-			<img
-				className="header-image"
-				src={Logo}
-				alt="logo"
-			/>
+			<p>Bike-Shaire</p>
 			{!loggedIn ? (
 				<button
 					onClick={() => setIsOpened(true)}
-					className="header-button"
+					className="header-icon"
+					name="login"
 				>
-					<FaUserCircle
-						size="36px"
-						color="grey"
-					/>
+					<AiOutlineUser />
 				</button>
 			) : (
 				<button
-					onClick={() => handelLogout()}
-					className="header-button"
+					onClick={(e) => handelLogout(e)}
+					className="header-icon"
+					name="register"
 				>
-					<RiLogoutCircleRLine
-						onClick={handelLogout}
-						size="36px"
-						color="grey"
-					/>
+					<TbLogout size="36px" />
 				</button>
 			)}
 		</div>

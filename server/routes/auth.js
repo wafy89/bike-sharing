@@ -38,10 +38,9 @@ router.post('/register', async (req, res) => {
 	}
 });
 router.delete('/logout', (req, res) => {
-	console.log('logoout');
-	if (req.session.user) {
+	if (req.session) {
 		req.session.destroy();
-		res.sendStatus(204);
+		res.status(204).send('deleted');
 	}
 });
 
