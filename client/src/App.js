@@ -2,12 +2,9 @@ import './App.css';
 import Map from './components/Map';
 import BikeMarker from './components/BikeMarker';
 import Login from './components/Login';
-import { locations } from './mocks/locations';
 import { useEffect, useState } from 'react';
 import Header from './components/Header';
-import axios from 'axios';
-
-const baseURL = 'http://localhost:8080/';
+import { getAllBikes } from './utils/api';
 
 function App() {
 	const [bikes, setBikes] = useState([]);
@@ -16,12 +13,9 @@ function App() {
 	const [error, setError] = useState('');
 
 	useEffect(() => {
-		// fetch all bikes
-		axios
-			.get('http://localhost:8080/bikes')
-			.then((response) => {
-				console.log(response.data);
-				setBikes(response.data);
+		getAllBikes
+			.then((data) => {
+				setBikes(data);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -39,7 +33,7 @@ function App() {
 			/>
 			<Map>
 				{bikes.length &&
-					locations.map((bike, index) => (
+					bikes.map((bike, index) => (
 						<BikeMarker
 							key={`${bike.lat} ${bike.lng}`}
 							bike={bike}
@@ -51,6 +45,8 @@ function App() {
 				<Login
 					setLoggedIn={setLoggedIn}
 					setIsOpen={setIsOpened}
+					setError={setError}
+					error={error}
 				/>
 			)}
 		</>

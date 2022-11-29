@@ -1,12 +1,12 @@
 import '../styles/Login.css';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Button from './Button';
+import { authenticate } from '../utils/api';
 // ICONS
 import { BiShowAlt } from 'react-icons/bi';
 import { TfiClose, TfiEmail, TfiLock } from 'react-icons/tfi';
 
-function Login({ isOpen, setIsOpen, setLoggedIn, error, setError }) {
+function Login({ setIsOpen, setLoggedIn, error, setError }) {
 	const [isRegister, setIsRegister] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 	const [closeModule, setCloseModule] = useState(false);
@@ -21,19 +21,18 @@ function Login({ isOpen, setIsOpen, setLoggedIn, error, setError }) {
 	};
 
 	const handelSubmit = (e) => {
-		const route = isRegister ? 'register' : 'login';
 		e.preventDefault();
-		axios
-			.post(`http://localhost:8080/auth/${route}`, { email, password })
-			.then((response) => {
-				if (response.data) setLoggedIn(true);
+		setError('');
+		const requestType = isRegister ? 'register' : 'login';
+
+		authenticate({ requestType, email, password })
+			.then((data) => {
+				setLoggedIn(true);
 				handelClosing();
 			})
 			.catch((err) => {
-				setError(err.message);
+				setError(err);
 			});
-
-		handelClosing();
 	};
 
 	const handleESCPress = (event) => {
@@ -50,6 +49,7 @@ function Login({ isOpen, setIsOpen, setLoggedIn, error, setError }) {
 			window.removeEventListener('keydown', handleESCPress);
 		};
 	}, [handleESCPress]);
+
 	return (
 		<div className={`wrapper ${closeModule ? 'close' : 'open'}`}>
 			<div className="card">
@@ -116,7 +116,7 @@ function Login({ isOpen, setIsOpen, setLoggedIn, error, setError }) {
 							/>
 						</div>
 					</div>
-					{error && <p>{error}</p>}
+					{error && <p className="form-error">{error}</p>}
 					<div className="form-actions">
 						<Button title={isRegister ? 'Signup' : 'Login'} />
 						<a

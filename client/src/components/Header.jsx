@@ -1,21 +1,16 @@
 import '../styles/Header.css';
-import Logo from '../assets/Logo.png';
 import { AiOutlineUser } from 'react-icons/ai';
 import { TbLogout } from 'react-icons/tb';
-
-import axios from 'axios';
+import { logout } from '../utils/api';
 
 function Header({ setIsOpened, loggedIn, setLoggedIn, setError }) {
 	const handelLogout = () => {
-		console.log('logout');
-		axios
-			.delete(`http://localhost:8080/auth/logout`)
-			.then((re) => {
-				console.log('response', re);
+		logout
+			.then(() => {
 				setLoggedIn(false);
 			})
 			.catch((err) => {
-				setError(err.message);
+				setError(err);
 			});
 	};
 	return (

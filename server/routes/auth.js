@@ -20,7 +20,7 @@ router.post('/login', async (req, res) => {
 		req.session.user = user;
 		return res.status(200).send(user);
 	} else {
-		return res.status(401).send(`Email and password don't match`);
+		return res.status(401).send("Email and password don't match");
 	}
 });
 

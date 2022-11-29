@@ -109,6 +109,9 @@
 	padding-left: 16px;
 	color: #5e5159;
 }
+.form-error {
+	color: red;
+}
 .form-actions {
 	width: 100%;
 	display: flex;
