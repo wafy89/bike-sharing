@@ -59,9 +59,11 @@ export const rentBike = (bikeID) =>
 		axios
 			.put(`bikes/rent/${bikeID}`)
 			.then((response) => {
+				console.log('apiJS', response);
 				if (response && response.data) resolve(response.data);
 			})
 			.catch((err) => {
+				console.log('apiJS er', err);
 				reject(err.response.data);
 			})
 	);

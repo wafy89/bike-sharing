@@ -52,8 +52,8 @@ router.post('/register', async (req, res) => {
 router.delete('/logout', (req, res) => {
 	if (req.session && req.session.userID) {
 		req.session.userID = null;
-		res.status(204).send('deleted');
 	}
+	res.status(204).send('deleted');
 });
 
 module.exports = router;

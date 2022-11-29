@@ -6,6 +6,7 @@ import redMarkerSvg from '../assets/redMarkerIcon.svg';
 import greyMarkerSvg from '../assets/greyMarkerIcon.svg';
 import Button from './Button';
 import { rentBike } from '../utils/api';
+import { useState } from 'react';
 
 // generate Icons
 const redIcon = new Icon({
@@ -21,7 +22,8 @@ const greyIcon = new Icon({
 	iconSize: [30, 30],
 });
 
-export default function BikeMarker({ bike, bikeID }) {
+export default function BikeMarker({ bike }) {
+	const [error, setError] = useState('');
 	const handleESCPress = (event) => {
 		const { keyCode } = event;
 		if (keyCode === 27) {
@@ -49,12 +51,11 @@ export default function BikeMarker({ bike, bikeID }) {
 		rentBike(bikeId)
 			.then((response) => {
 				console.log(response.data);
+				closePopup();
+				setError('');
 			})
 			.catch((err) => {
-				console.log(err);
-			})
-			.finally(() => {
-				closePopup();
+				setError(err);
 			});
 	};
 
@@ -73,6 +74,7 @@ export default function BikeMarker({ bike, bikeID }) {
 							<li>Bike lock will unlock automatically</li>
 							<li>Adjust suddle height and happy ride</li>
 						</ol>
+						{error && <p className="popup-details-error">{error}</p>}
 					</section>
 					<Button
 						title={bike.rented ? 'Return Bike' : 'Rent Bike'}

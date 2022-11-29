@@ -13,10 +13,12 @@ router.get('/', async (req, res) => {
 // authentication middleware
 router.use((req, res, next) => {
 	const { userID } = req.session;
-	if (!userID) {
+	console.log(userID);
+	if (userID) {
+		next();
+	} else {
 		res.status(401).send('Login is required!');
 	}
-	next();
 });
 
 // RENT A BIKE
@@ -27,7 +29,11 @@ router.put('/rent/:bikeID', async (req, res) => {
 	// check if user has rented a bike already
 	const user = await User.findById(userID);
 	if (user.rentedBike) {
-		res.status(405).send('Renting more than one bike is not allowed!');
+		res
+			.status(405)
+			.send(
+				'Renting more than one bike is not allowed! \n Return the reted bike before renting new one'
+			);
 	}
 
 	// check if bike available

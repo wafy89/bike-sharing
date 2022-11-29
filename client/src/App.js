@@ -14,7 +14,6 @@ function App() {
 
 	useEffect(() => {
 		checkAuthentication().then((data) => {
-			console.log(data);
 			if (data && data.authenticated) {
 				setLoggedIn(true);
 			}

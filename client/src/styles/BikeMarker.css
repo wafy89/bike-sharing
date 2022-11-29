@@ -11,6 +11,9 @@
 .popup-details-sub_header {
 	color: #5e5159;
 }
+.popup-details-error {
+	color: red;
+}
 .popup ol {
 	line-height: 20px;
 	color: #5e5159;
