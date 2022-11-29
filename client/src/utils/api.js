@@ -9,7 +9,7 @@ const axios = axiosModule.create({
 export const getAllBikes = () =>
 	new Promise((resolve, reject) => {
 		axios
-			.get('bikes')
+			.get('/bikes/')
 			.then((response) => {
 				resolve(response.data);
 			})
@@ -42,10 +42,22 @@ export const authenticate = ({ requestType, email, password }) =>
 			});
 	});
 
+export const checkAuthentication = () =>
+	new Promise((resolve, reject) => {
+		axios
+			.get(`/auth/`)
+			.then((response) => {
+				if (response) resolve(response.data);
+			})
+			.catch((err) => {
+				reject(err);
+			});
+	});
+
 export const rentBike = (bikeID) =>
 	new Promise((resolve, reject) =>
 		axios
-			.post(`rent/${bikeID}`)
+			.put(`bikes/rent/${bikeID}`)
 			.then((response) => {
 				if (response && response.data) resolve(response.data);
 			})

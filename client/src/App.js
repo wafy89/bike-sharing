@@ -4,7 +4,7 @@ import BikeMarker from './components/BikeMarker';
 import Login from './components/Login';
 import { useEffect, useState } from 'react';
 import Header from './components/Header';
-import { getAllBikes } from './utils/api';
+import { getAllBikes, checkAuthentication } from './utils/api';
 
 function App() {
 	const [bikes, setBikes] = useState([]);
@@ -13,6 +13,12 @@ function App() {
 	const [error, setError] = useState('');
 
 	useEffect(() => {
+		checkAuthentication().then((data) => {
+			console.log(data);
+			if (data && data.authenticated) {
+				setLoggedIn(true);
+			}
+		});
 		getAllBikes()
 			.then((data) => {
 				setBikes(data);
