@@ -14,7 +14,7 @@
 	height: 80px;
 	overflow: hidden;
 	transition: all 1s linear;
-	transform: translateX(200px);
+	transform: translateX(180px);
 }
 
 .header.open {
@@ -23,9 +23,11 @@
 
 .header-logo {
 	padding: 10px;
+	font-weight: 300;
+	font-size: 36px;
 }
 .header-nav {
-	width: 180px;
+	width: 160px;
 	padding-left: 20px;
 	height: 100%;
 	display: flex;
@@ -37,7 +39,7 @@
 	margin-right: 0px;
 	text-decoration: none;
 	color: #5e5159;
-	font-size: 24px;
+	font-size: 20px;
 	outline: #5e5159;
 	padding: 10px;
 	color: white;

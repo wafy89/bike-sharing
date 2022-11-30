@@ -44,7 +44,7 @@ mongoose
 			})
 		);
 
-		// Routs
+		// Routes
 		server.use('/auth', authRoute);
 		server.use('/bikes', bikesRoute);
 	})

@@ -5,7 +5,7 @@ import { Icon } from 'leaflet';
 import redMarkerSvg from '../assets/redMarkerIcon.svg';
 import greyMarkerSvg from '../assets/greyMarkerIcon.svg';
 import Button from './Button';
-import { rentBike } from '../utils/api';
+import { rentBike, returnBike } from '../utils/api';
 import { useState } from 'react';
 
 // generate Icons
@@ -13,21 +13,33 @@ const redIcon = new Icon({
 	iconUrl: redMarkerSvg,
 	iconAnchor: [5, 55],
 	popupAnchor: [10, -44],
-	iconSize: [30, 30],
+	iconSize: [50, 50],
 });
 const greyIcon = new Icon({
 	iconUrl: greyMarkerSvg,
 	iconAnchor: [5, 55],
 	popupAnchor: [10, -44],
-	iconSize: [30, 30],
+	iconSize: [50, 50],
 });
 
-export default function BikeMarker({ bike }) {
+export default function BikeMarker({ bike, setBikes, bikes }) {
 	const [error, setError] = useState('');
 	const handleESCPress = (event) => {
 		const { keyCode } = event;
 		if (keyCode === 27) {
 			closePopup();
+		}
+	};
+
+	// replace bike data in bikesArray
+	const updateBikeData = (newBike) => {
+		const index = bikes.findIndex((bike) => bike._id === newBike._id);
+		if (index >= 0) {
+			setBikes((oldData) =>
+				oldData.map((oldBike) =>
+					oldBike._id === newBike._id ? newBike : oldBike
+				)
+			);
 		}
 	};
 
@@ -47,16 +59,27 @@ export default function BikeMarker({ bike }) {
 		};
 	}, []);
 
-	const handleButtonClick = (bikeId) => {
-		rentBike(bikeId)
-			.then((response) => {
-				console.log(response.data);
-				closePopup();
-				setError('');
-			})
-			.catch((err) => {
-				setError(err);
-			});
+	const handleButtonClick = ({ bikeID, isReturning }) => {
+		isReturning
+			? returnBike(bikeID)
+					.then((response) => {
+						//console.log(response.data);
+						updateBikeData(response);
+						closePopup();
+						setError('');
+					})
+					.catch((err) => {
+						setError(err);
+					})
+			: rentBike(bikeID)
+					.then((response) => {
+						updateBikeData(response);
+						closePopup();
+						setError('');
+					})
+					.catch((err) => {
+						setError(err);
+					});
 	};
 
 	return (
@@ -78,7 +101,9 @@ export default function BikeMarker({ bike }) {
 					</section>
 					<Button
 						title={bike.rented ? 'Return Bike' : 'Rent Bike'}
-						onClick={() => handleButtonClick(bike._id)}
+						onClick={() =>
+							handleButtonClick({ bikeID: bike._id, isReturning: bike.rented })
+						}
 					/>
 				</div>
 			</Popup>

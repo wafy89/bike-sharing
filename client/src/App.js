@@ -8,7 +8,7 @@ import { getAllBikes, checkAuthentication } from './utils/api';
 
 function App() {
 	const [bikes, setBikes] = useState([]);
-	const [isOpened, setIsOpened] = useState(false);
+	const [isLoginOpened, setIsLoginOpened] = useState(false);
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [error, setError] = useState('');
 	const [isRegister, setIsRegister] = useState(false);
@@ -31,28 +31,28 @@ function App() {
 	return (
 		<>
 			<Header
-				setIsOpened={setIsOpened}
+				setIsLoginOpened={setIsLoginOpened}
 				loggedIn={loggedIn}
 				className="menu"
 				setError={setError}
 				setLoggedIn={setLoggedIn}
-				isRegister={isRegister}
 				setIsRegister={setIsRegister}
 			/>
 			<Map>
-				{bikes.length &&
+				{bikes &&
 					bikes.map((bike, index) => (
 						<BikeMarker
 							key={`${bike.lat} ${bike.lng}`}
 							bike={bike}
-							bikeID={index}
+							setBikes={setBikes}
+							bikes={bikes}
 						/>
 					))}
 			</Map>
-			{isOpened && (
+			{isLoginOpened && (
 				<Login
 					setLoggedIn={setLoggedIn}
-					setIsOpen={setIsOpened}
+					setIsLoginOpen={setIsLoginOpened}
 					setError={setError}
 					error={error}
 					isRegister={isRegister}

@@ -6,9 +6,8 @@ import { IoFilterCircleSharp } from 'react-icons/io5';
 import { logout } from '../utils/api';
 
 function Header({
-	isRegister,
 	setIsRegister,
-	setIsOpened,
+	setIsLoginOpened,
 	loggedIn,
 	setLoggedIn,
 	setError,
@@ -48,7 +47,7 @@ function Header({
 		} else {
 			setIsRegister(false);
 		}
-		setIsOpened(true);
+		setIsLoginOpened(true);
 	};
 	return (
 		<>
@@ -68,7 +67,7 @@ function Header({
 				/>
 			</button>
 			<div className={!openHeader ? 'header' : 'header open'}>
-				<p className="header-logo">Bike-Shaire</p>
+				<h2 className="header-logo">Bike-Share</h2>
 				<nav className="header-nav">
 					<a
 						className="header-nav-item "

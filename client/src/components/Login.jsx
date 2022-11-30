@@ -7,7 +7,7 @@ import { BiShowAlt } from 'react-icons/bi';
 import { TfiClose, TfiEmail, TfiLock } from 'react-icons/tfi';
 
 function Login({
-	setIsOpen,
+	setIsLoginOpen,
 	setLoggedIn,
 	error,
 	setError,
@@ -21,7 +21,7 @@ function Login({
 
 	const handelClosing = () => {
 		setTimeout(() => {
-			setIsOpen(false);
+			setIsLoginOpen(false);
 		}, 1000); //waiting for closing animation to be done
 		setCloseModule(true); // animation starts
 	};
