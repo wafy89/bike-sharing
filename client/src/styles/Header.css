@@ -3,7 +3,6 @@
 	right: 80px;
 	top: 0;
 	z-index: 150;
-	background-color: white;
 	border-radius: 0 0 0 5px;
 	padding-left: 10px;
 	display: flex;
@@ -22,9 +21,12 @@
 }
 
 .header-logo {
+	background-color: rgba(94, 81, 89, 0.5);
 	padding: 10px;
-	font-weight: 300;
-	font-size: 36px;
+	width: 120px;
+}
+.header-logo-image {
+	width: 100%;
 }
 .header-nav {
 	width: 160px;
@@ -46,7 +48,7 @@
 	cursor: pointer;
 }
 
-.header-icon-container {
+.burger-menu {
 	position: fixed;
 	z-index: 151;
 	top: 0;
@@ -62,14 +64,14 @@
 	background-color: #5e5159;
 }
 
-.header-icon {
+.burger-menu-icon {
 	font-size: 36px;
 }
 
-.header-icon.spin {
+.burger-menu-icon.spin {
 	animation: rotate 1s linear infinite both;
 }
-.header-icon.reverse {
+.burger-menu-icon.reverse {
 	animation: rotate 1s linear infinite reverse both;
 }
 

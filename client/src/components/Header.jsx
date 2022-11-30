@@ -4,6 +4,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { TbLogout } from 'react-icons/tb';
 import { IoFilterCircleSharp } from 'react-icons/io5';
 import { logout } from '../utils/api';
+import Logo from '../assets/bicycle.png';
 
 function Header({
 	setIsRegister,
@@ -52,22 +53,27 @@ function Header({
 	return (
 		<>
 			<button
-				className="header-icon-container"
-				name="navigation"
+				className="burger-menu"
+				name="burger-menu"
 				onClick={switchOpen}
 			>
 				<IoFilterCircleSharp
 					className={
 						!animationStatus
-							? 'header-icon'
+							? 'burger-menu-icon'
 							: animationStatus === 'opening'
-							? 'header-icon spin'
-							: 'header-icon reverse'
+							? 'burger-menu-icon spin'
+							: 'burger-menu-icon reverse'
 					}
 				/>
 			</button>
-			<div className={!openHeader ? 'header' : 'header open'}>
-				<h2 className="header-logo">Bike-Share</h2>
+			<header className={!openHeader ? 'header' : 'header open'}>
+				<div className="header-logo">
+					<img
+						src={Logo}
+						className="header-logo-image"
+					/>
+				</div>
 				<nav className="header-nav">
 					<a
 						className="header-nav-item "
@@ -94,7 +100,7 @@ function Header({
 						</a>
 					)}
 				</nav>
-			</div>
+			</header>
 		</>
 	);
 }
