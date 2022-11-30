@@ -6,8 +6,14 @@ import { authenticate } from '../utils/api';
 import { BiShowAlt } from 'react-icons/bi';
 import { TfiClose, TfiEmail, TfiLock } from 'react-icons/tfi';
 
-function Login({ setIsOpen, setLoggedIn, error, setError }) {
-	const [isRegister, setIsRegister] = useState(false);
+function Login({
+	setIsOpen,
+	setLoggedIn,
+	error,
+	setError,
+	isRegister,
+	setIsRegister,
+}) {
 	const [showPassword, setShowPassword] = useState(false);
 	const [closeModule, setCloseModule] = useState(false);
 	const [email, setEmail] = useState('');

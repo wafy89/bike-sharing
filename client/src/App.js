@@ -11,6 +11,7 @@ function App() {
 	const [isOpened, setIsOpened] = useState(false);
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [error, setError] = useState('');
+	const [isRegister, setIsRegister] = useState(false);
 
 	useEffect(() => {
 		checkAuthentication().then((data) => {
@@ -35,6 +36,8 @@ function App() {
 				className="menu"
 				setError={setError}
 				setLoggedIn={setLoggedIn}
+				isRegister={isRegister}
+				setIsRegister={setIsRegister}
 			/>
 			<Map>
 				{bikes.length &&
@@ -52,6 +55,8 @@ function App() {
 					setIsOpen={setIsOpened}
 					setError={setError}
 					error={error}
+					isRegister={isRegister}
+					setIsRegister={setIsRegister}
 				/>
 			)}
 		</>
