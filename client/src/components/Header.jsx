@@ -56,6 +56,7 @@ function Header({
 				className="burger-menu"
 				name="burger-menu"
 				onClick={switchOpen}
+				tabIndex={0}
 			>
 				<IoFilterCircleSharp
 					className={
@@ -79,6 +80,8 @@ function Header({
 						className="header-nav-item "
 						onClick={() => openDialog({ register: true })}
 						name="signup"
+						href="#"
+						tabIndex={1}
 					>
 						signup
 					</a>
@@ -87,6 +90,8 @@ function Header({
 							className="header-nav-item"
 							onClick={handelLogout}
 							name="logout"
+							href="#"
+							tabIndex={2}
 						>
 							logout
 						</a>
@@ -95,6 +100,8 @@ function Header({
 							className="header-nav-item "
 							onClick={() => openDialog({ register: false })}
 							name="login"
+							href="#"
+							tabIndex={2}
 						>
 							login
 						</a>

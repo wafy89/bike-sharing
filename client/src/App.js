@@ -46,6 +46,7 @@ function App() {
 							bike={bike}
 							setBikes={setBikes}
 							bikes={bikes}
+							setIsLoginOpened={setIsLoginOpened}
 						/>
 					))}
 			</Map>

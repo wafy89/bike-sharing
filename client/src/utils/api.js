@@ -54,26 +54,17 @@ export const checkAuthentication = () =>
 			});
 	});
 
-export const rentBike = (bikeID) =>
-	new Promise((resolve, reject) =>
-		axios
-			.put(`bikes/rent/${bikeID}`)
-			.then((response) => {
-				if (response && response.data) resolve(response.data);
-			})
-			.catch((err) => {
-				reject(err.response.data);
-			})
-	);
+export const rentBike = ({ bikeID, isReturning }) => {
+	const url = `bikes/${isReturning ? 'return' : 'rent'}/${bikeID}`;
 
-export const returnBike = (bikeID) =>
-	new Promise((resolve, reject) =>
+	return new Promise((resolve, reject) =>
 		axios
-			.put(`bikes/return/${bikeID}`)
+			.put(url)
 			.then((response) => {
 				if (response && response.data) resolve(response.data);
 			})
 			.catch((err) => {
-				reject(err.response.data);
+				reject(err.response);
 			})
 	);
+};

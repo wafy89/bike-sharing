@@ -8,7 +8,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	color: #5e5159;
+	color: var(--primary-color);
 	font-size: 36px;
 	height: 80px;
 	overflow: hidden;
@@ -21,8 +21,8 @@
 }
 
 .header-logo {
-	background-color: rgba(94, 81, 89, 0.5);
-	padding: 10px;
+	background-color: var(--secondary-color);
+	padding: 18px;
 	width: 120px;
 }
 .header-logo-image {
@@ -35,17 +35,23 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-	background-color: #5e5159;
+	background-color: var(--secondary-color);
 }
 .header-nav-item {
 	margin-right: 0px;
 	text-decoration: none;
-	color: #5e5159;
+	color: var(--secondary-color);
 	font-size: 20px;
-	outline: #5e5159;
+	outline: var(--secondary-color);
 	padding: 10px;
 	color: white;
 	cursor: pointer;
+}
+.header-nav-item:hover {
+	color: var(--primary-color);
+}
+.header-nav-item:active {
+	text-shadow: 1px 1px 2px var(--primary-color);
 }
 
 .burger-menu {
@@ -61,7 +67,7 @@
 	border: none;
 	font-size: 36px;
 	color: white;
-	background-color: #5e5159;
+	background-color: var(--secondary-color);
 }
 
 .burger-menu-icon {

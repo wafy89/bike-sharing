@@ -84,7 +84,7 @@ function Login({
 								<TfiEmail />
 							</label>
 							<input
-								id="user-email"
+								id="email"
 								className="form-content-input"
 								type="email"
 								name="email"
@@ -99,17 +99,17 @@ function Login({
 						<div className="form-field">
 							<label
 								className="form-content-label"
-								htmlFor="user-password"
+								htmlFor="password"
 							>
 								<TfiLock />
 							</label>
 							<input
-								id="user-password"
+								id="password"
 								className="form-content-input"
 								type={showPassword ? 'text' : 'password'}
 								name="password"
 								value={password}
-								placeholder="PASWORD"
+								placeholder="PASSWORD"
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 							<BiShowAlt
@@ -128,7 +128,9 @@ function Login({
 						<a
 							onClick={() => setIsRegister(!isRegister)}
 							className="regisler-link"
-							accessKey="s"
+							role="button"
+							tabIndex={0}
+							href="#"
 						>
 							{`${
 								isRegister

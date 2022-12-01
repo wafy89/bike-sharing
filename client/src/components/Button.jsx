@@ -6,6 +6,7 @@ function Button({ onClick, title }) {
 		<button
 			onClick={onClick}
 			className="button"
+			type="submit"
 		>
 			{title}
 		</button>

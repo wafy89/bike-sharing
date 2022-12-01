@@ -3,18 +3,24 @@
 	flex-direction: column;
 	line-height: normal;
 }
-.popup-details-header {
+
+.details-header {
 	line-height: 50px;
-	color: #5e5159;
+	color: var(--secodary-color);
 	margin: 0;
 }
-.popup-details-sub_header {
-	color: #5e5159;
+.details-status {
+	font-size: 16px;
+	color: var(--secodary-color);
+	font-weight: 500;
 }
-.popup-details-error {
+.details-error {
 	color: red;
 }
 .popup ol {
 	line-height: 20px;
-	color: #5e5159;
+	color: var(--secodary-color);
+}
+.login-link {
+	display: inline-block;
 }
