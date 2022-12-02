@@ -7,7 +7,7 @@
 	height: 100vh;
 	left: 0;
 	bottom: 0;
-	background-color: rgba(94, 81, 89, 0.9);
+	background-color: var(--secondary-color);
 }
 
 .wrapper.open {
@@ -68,6 +68,8 @@
 	color: var(--secondary-color);
 }
 .form-close {
+	border: none;
+	background: none;
 	display: block;
 	font-size: 22px;
 	color: var(--secondary-color);

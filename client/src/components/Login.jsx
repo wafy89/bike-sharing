@@ -21,6 +21,7 @@ function Login({
 
 	const handelClosing = () => {
 		setTimeout(() => {
+			setError('');
 			setIsLoginOpen(false);
 		}, 1000); //waiting for closing animation to be done
 		setCloseModule(true); // animation starts
@@ -62,15 +63,25 @@ function Login({
 				<form
 					className="form"
 					onSubmit={handelSubmit}
+					name="login"
 				>
 					<div className="form-header">
 						<h2>{isRegister ? 'Register' : 'Login'}</h2>
-						<TfiClose
-							onClick={handelClosing}
+						<button
+							aria-label="close"
+							name="close"
 							className="form-close"
-						/>
+						>
+							<TfiClose
+								onClick={handelClosing}
+								className="form-close"
+							/>
+						</button>
 					</div>
-					<p className="form-discription">
+					<p
+						aria-label="required credentials"
+						className="form-discription"
+					>
 						{isRegister
 							? 'Use your email and password to register'
 							: 'Use your email and password to login.'}
@@ -80,14 +91,16 @@ function Login({
 							<label
 								className="form-content-label"
 								htmlFor="email"
+								aria-label="email"
 							>
-								<TfiEmail />
+								<TfiEmail aria-label="email-icon" />
 							</label>
 							<input
 								id="email"
 								className="form-content-input"
 								type="email"
 								name="email"
+								aria-label="email input"
 								placeholder="EMAIL"
 								required
 								autoFocus={true}
@@ -100,14 +113,19 @@ function Login({
 							<label
 								className="form-content-label"
 								htmlFor="password"
+								aria-label="password"
 							>
-								<TfiLock />
+								<TfiLock
+									aria-label="email-icon"
+									h
+								/>
 							</label>
 							<input
 								id="password"
 								className="form-content-input"
 								type={showPassword ? 'text' : 'password'}
 								name="password"
+								aria-label="password input"
 								value={password}
 								placeholder="PASSWORD"
 								onChange={(e) => setPassword(e.target.value)}
@@ -116,6 +134,7 @@ function Login({
 								onClick={() => {
 									setShowPassword(!showPassword);
 								}}
+								aria-label="show password icon"
 								color="#b39bab"
 								size={25}
 								className="show-icon"

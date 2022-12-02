@@ -38,28 +38,30 @@ function App() {
 				setLoggedIn={setLoggedIn}
 				setIsRegister={setIsRegister}
 			/>
-			<Map>
-				{bikes &&
-					bikes.map((bike, index) => (
-						<BikeMarker
-							key={`${bike.lat} ${bike.lng}`}
-							bike={bike}
-							setBikes={setBikes}
-							bikes={bikes}
-							setIsLoginOpened={setIsLoginOpened}
-						/>
-					))}
-			</Map>
-			{isLoginOpened && (
-				<Login
-					setLoggedIn={setLoggedIn}
-					setIsLoginOpen={setIsLoginOpened}
-					setError={setError}
-					error={error}
-					isRegister={isRegister}
-					setIsRegister={setIsRegister}
-				/>
-			)}
+			<main>
+				<Map>
+					{bikes &&
+						bikes.map((bike) => (
+							<BikeMarker
+								key={`${bike.lat} ${bike.lng}`}
+								bike={bike}
+								setBikes={setBikes}
+								bikes={bikes}
+								setIsLoginOpened={setIsLoginOpened}
+							/>
+						))}
+				</Map>
+				{isLoginOpened && (
+					<Login
+						setLoggedIn={setLoggedIn}
+						setIsLoginOpen={setIsLoginOpened}
+						setError={setError}
+						error={error}
+						isRegister={isRegister}
+						setIsRegister={setIsRegister}
+					/>
+				)}
+			</main>
 		</>
 	);
 }

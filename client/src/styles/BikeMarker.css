@@ -23,4 +23,5 @@
 }
 .login-link {
 	display: inline-block;
+	color: var(--secodary-color);
 }

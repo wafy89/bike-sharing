@@ -16,3 +16,6 @@ code {
 	--primary-color: #82dfe1;
 	--secondary-color: #5e5159;
 }
+:root * {
+	outline-color: var(--primary-color);
+}
