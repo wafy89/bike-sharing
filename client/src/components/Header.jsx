@@ -1,7 +1,5 @@
 import '../styles/Header.css';
-import { useState } from 'react';
-import { AiOutlineUser } from 'react-icons/ai';
-import { TbLogout } from 'react-icons/tb';
+import { useState, useEffect, useRef } from 'react';
 import { IoFilterCircleSharp } from 'react-icons/io5';
 import { logout } from '../utils/api';
 import Logo from '../assets/bicycle.png';
@@ -13,8 +11,11 @@ function Header({
 	setLoggedIn,
 	setError,
 }) {
-	const [openHeader, setOpenHeader] = useState(false);
+	const [openHeader, setOpenHeader] = useState(true);
 	const [animationStatus, setAnimationStatus] = useState('');
+	const [focus, setFocus] = useState(null);
+
+	const headerRef = useRef(null);
 
 	const switchOpen = () => {
 		if (openHeader) {
@@ -50,9 +51,100 @@ function Header({
 		}
 		setIsLoginOpened(true);
 	};
+
+	// allow navigating with arrow keys
+	const handleArrowKeyPress = (event) => {
+		if (!openHeader) return;
+		const { keyCode } = event;
+		if (keyCode === 37) {
+			if (focus < 2) return;
+			headerRef.current.querySelector(`#focus-item-${focus - 1}`).focus();
+		} else if (keyCode === 39) {
+			if (focus > 2) return;
+			headerRef.current.querySelector(`#focus-item-${focus + 1}`).focus();
+		}
+	};
+	useEffect(() => {
+		// close popup with escape key
+		window.addEventListener('keydown', handleArrowKeyPress);
+		//cleanup
+		return () => {
+			window.removeEventListener('keydown', handleArrowKeyPress);
+		};
+	}, [handleArrowKeyPress]);
+
 	return (
-		<>
+		<header
+			className="header"
+			ref={headerRef}
+		>
+			<nav
+				className="header-navbar"
+				aria-label="navigation"
+			>
+				<div className="header-logo">
+					<img
+						src={Logo}
+						className="header-logo-image"
+						alt="logo"
+					/>
+				</div>
+				<ul
+					role="menubar"
+					className={
+						!openHeader ? 'header-navbar-menu' : 'header-navbar-menu open'
+					}
+					aria-label="navigation links"
+					id="nav-menu"
+				>
+					<li className="header-nav-item">
+						<a
+							onFocus={() => setFocus(1)}
+							id="focus-item-1"
+							className="header-nav-link"
+							onClick={() => openDialog({ register: true })}
+							name="signup"
+							role="menuitem"
+							aria-label="signup"
+							href="#"
+						>
+							signup
+						</a>
+					</li>
+					<li className="header-nav-item">
+						{loggedIn ? (
+							<a
+								onFocus={() => setFocus(2)}
+								id="focus-item-2"
+								onClick={handelLogout}
+								className="header-nav-link"
+								name="logout"
+								role="menuitem"
+								aria-label="logout"
+								href="#"
+							>
+								logout
+							</a>
+						) : (
+							<a
+								onFocus={() => setFocus(2)}
+								id="focus-item-2"
+								className="header-nav-link"
+								onClick={() => openDialog({ register: false })}
+								name="login"
+								role="menuitem"
+								aria-label="login"
+								href="#"
+							>
+								login
+							</a>
+						)}
+					</li>
+				</ul>
+			</nav>
 			<button
+				onFocus={() => setFocus(3)}
+				id="focus-item-3"
 				className="burger-menu"
 				name="burger-menu"
 				onClick={switchOpen}
@@ -68,47 +160,7 @@ function Header({
 					}
 				/>
 			</button>
-			<header className={!openHeader ? 'header' : 'header open'}>
-				<div className="header-logo">
-					<img
-						src={Logo}
-						className="header-logo-image"
-					/>
-				</div>
-				<nav className="header-nav">
-					<a
-						className="header-nav-item "
-						onClick={() => openDialog({ register: true })}
-						name="signup"
-						href="#"
-						tabIndex={1}
-					>
-						signup
-					</a>
-					{loggedIn ? (
-						<a
-							className="header-nav-item"
-							onClick={handelLogout}
-							name="logout"
-							href="#"
-							tabIndex={2}
-						>
-							logout
-						</a>
-					) : (
-						<a
-							className="header-nav-item "
-							onClick={() => openDialog({ register: false })}
-							name="login"
-							href="#"
-							tabIndex={2}
-						>
-							login
-						</a>
-					)}
-				</nav>
-			</header>
-		</>
+		</header>
 	);
 }
 

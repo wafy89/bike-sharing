@@ -1,64 +1,74 @@
 .header {
 	position: fixed;
-	right: 80px;
 	top: 0;
-	z-index: 150;
-	border-radius: 0 0 0 5px;
-	padding-left: 10px;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	color: var(--primary-color);
+	overflow: hidden;
+	height: 80px;
+	z-index: 6;
+}
+.header-navbar {
+	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	color: var(--primary-color);
-	font-size: 36px;
-	height: 80px;
-	overflow: hidden;
-	transition: all 1s linear;
-	transform: translateX(180px);
-}
-
-.header.open {
-	transform: translateX(0);
+	border-radius: 0 0 0 5px;
+	height: 100%;
+	background-color: var(--secondary-color);
 }
 
 .header-logo {
-	background-color: var(--secondary-color);
-	padding: 18px;
-	width: 120px;
-}
-.header-logo-image {
-	width: 100%;
-}
-.header-nav {
-	width: 160px;
-	padding-left: 20px;
-	height: 100%;
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: center;
+	height: 80px;
+	margin: 40px;
+}
+.header-logo-image {
+	width: 140px;
+}
+
+.header-navbar-menu {
+	overflow: hidden;
+	width: 0;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
 	background-color: var(--secondary-color);
+	list-style: none;
+	background-color: var(--secondary-color);
+	transition: all 1s linear;
 }
+.header-navbar-menu.open {
+	width: calc(
+		100vw - 260px
+	); /* 260 = 140 logo width + 80 logo margin + 10*4 nav items margin */
+}
+
 .header-nav-item {
-	margin-right: 0px;
-	text-decoration: none;
-	color: var(--secondary-color);
 	font-size: 20px;
-	outline: var(--secondary-color);
-	padding: 10px;
-	color: white;
 	cursor: pointer;
+	margin: 10px;
 }
-.header-nav-item:hover {
+.header-nav-link {
+	color: white;
+	text-decoration: none;
+}
+.header-nav-link:hover {
 	color: var(--primary-color);
 }
-.header-nav-item:active {
+.header-nav-link:active {
 	text-shadow: 1px 1px 2px var(--primary-color);
 }
 
 .burger-menu {
 	position: fixed;
-	z-index: 151;
 	top: 0;
 	right: 0;
+	z-index: 6;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -75,10 +85,10 @@
 }
 
 .burger-menu-icon.spin {
-	animation: rotate 1s linear infinite both;
+	animation: rotate 0.5s linear infinite both;
 }
 .burger-menu-icon.reverse {
-	animation: rotate 1s linear infinite reverse both;
+	animation: rotate 0.5s linear infinite reverse both;
 }
 
 @keyframes rotate {
