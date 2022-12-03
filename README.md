@@ -17,7 +17,7 @@
 ### 2. Install NPM packages
 ```sh
 > cd bike-sharing
-> npm install-deps
+> npm run install-deps
 ```
 
 ### 2. run application 
