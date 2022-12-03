@@ -29,15 +29,17 @@ export default function BikeMarker({
 }) {
 	const [error, setError] = useState('');
 	const [loginLink, setLoginLink] = useState(false);
+	const [myBikeData, setMyBikeData] = useState(null);
 
 	// CLOSE POPUP FUNCTIONALITY
 	const [refVisible, setRefVisible] = useState(false);
 	const buttonRef = useRef(null);
 	const map = useMapEvents({
 		popupclose(popup) {
+			// cleanup States
 			setError('');
-			setLoginLink('');
-
+			setLoginLink(false);
+			setMyBikeData(null);
 			// setting focus on source marker ( dosen't work when rent bike triggered because the icon is changed )
 			popup.popup._source._icon.focus();
 		},
@@ -75,6 +77,11 @@ export default function BikeMarker({
 		setError('');
 	};
 
+	const goToMyBike = () => {
+		map.closePopup();
+		map.flyTo([myBikeData.lat, myBikeData.lng], 17);
+	};
+
 	const updateBikeData = (newBike) => {
 		const index = bikes.findIndex((bike) => bike._id === newBike._id);
 		if (index >= 0) {
@@ -97,7 +104,8 @@ export default function BikeMarker({
 				if (err.status === 401) {
 					setLoginLink(true);
 				}
-				setError(err.data);
+				setError(err.data.message);
+				setMyBikeData(err.data.myBike || null);
 			});
 	};
 
@@ -119,21 +127,30 @@ export default function BikeMarker({
 							<li>Adjust suddle height and happy ride</li>
 						</ol>
 						{error && (
-							<>
-								<p className="details-error">
-									{error}{' '}
-									{loginLink && (
-										<a
-											onClick={() => openLogin(true)}
-											className="login-link"
-											role="button"
-											href="#"
-										>
-											Login?
-										</a>
-									)}
-								</p>{' '}
-							</>
+							<p className="details-error">
+								{error}{' '}
+								{loginLink && (
+									<a
+										onClick={() => openLogin(true)}
+										className="login-link"
+										role="button"
+										href="#"
+									>
+										Login?
+									</a>
+								)}
+								{/* allow user to find his bike */}
+								{myBikeData && (
+									<a
+										onClick={goToMyBike}
+										className="login-link"
+										role="button"
+										href="#"
+									>
+										Take me to my bike
+									</a>
+								)}
+							</p>
 						)}
 					</section>
 					<Button

@@ -20,7 +20,6 @@ router.post('/login', async (req, res) => {
 
 	// get user
 	const user = await User.findOne({ email });
-	console.log({ user });
 	if (!user) return res.status(401).send('Email is incorrect');
 
 	//check password

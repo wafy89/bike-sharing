@@ -26,18 +26,20 @@ router.put('/rent/:bikeID', async (req, res) => {
 	const { bikeID } = req.params;
 	// check if user has rented a bike already
 	const user = await User.findById(userID);
+
 	if (user.rentedBike) {
-		return res
-			.status(405)
-			.send(
-				'Renting more than one bike is not allowed! Return the reted bike before renting new one'
-			);
+		const myBike = await Bike.findById(user.rentedBike);
+		return res.status(405).send({
+			message:
+				'Renting more than one bike is not allowed! Return the reted bike before renting new one',
+			myBike,
+		});
 	}
 
 	const bike = await Bike.findById(bikeID);
 	// check if bike is available
 	if (bike.rented) {
-		return res.status(405).send('Bike is already rented');
+		return res.status(403).send({ message: 'Bike is already rented' });
 	} else {
 		// rent the bike
 		bike.rented = true;
@@ -59,7 +61,11 @@ router.put('/return/:bikeID', async (req, res) => {
 
 	// check if user rented the bike
 	if (!user.rentedBike || !user.rentedBike.equals(bikeID)) {
-		return res.status(405).send('You can return a bike you have rented');
+		const myBike = await Bike.findById(user.rentedBike);
+		return res.status(405).send({
+			message: 'You have not rented this bike',
+			myBike,
+		});
 	} else {
 		bike.rented = false;
 		user.rentedBike = null;
