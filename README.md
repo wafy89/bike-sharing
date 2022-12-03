@@ -7,7 +7,7 @@
 ## running the Application : 
 
 ### 1. Clone the repo
-> git@github.com:wafy89/bike-sharing.git
+> git clone git@github.com:wafy89/bike-sharing.git
 > cd bike-sharing
 
 
