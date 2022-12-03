@@ -31,29 +31,29 @@ export default function BikeMarker({
 	const [loginLink, setLoginLink] = useState(false);
 	const [myBikeData, setMyBikeData] = useState(null);
 
-	// CLOSE POPUP FUNCTIONALITY
+	// FORCE FOCUS ON POPUP
 	const [refVisible, setRefVisible] = useState(false);
 	const buttonRef = useRef(null);
+	useEffect(() => {
+		//force focus on button if buttonRef === null
+		if (refVisible) {
+			buttonRef.current.focus();
+		}
+	}, [refVisible]);
+
+	// UPDATE CLOSE POPUP FUNCTION
 	const map = useMapEvents({
 		popupclose(popup) {
 			// cleanup States
 			setError('');
 			setLoginLink(false);
 			setMyBikeData(null);
-			// setting focus on source marker ( dosen't work when rent bike triggered because the icon is changed )
+			// setting focus on source marker ( dosen't work when rent bike triggered because the icon ref is changed )
 			popup.popup._source._icon.focus();
 		},
 	});
 
-	useEffect(() => {
-		//force focus on button if buttonRef === null
-		if (refVisible) {
-			buttonRef.current.focus();
-		}
-
-		//return setRefVisible(false);
-	}, [refVisible]);
-
+	// CLOSE POPUP BY ESC KEY
 	const handleESCPress = (event) => {
 		const { keyCode } = event;
 		if (keyCode === 27) {
@@ -77,11 +77,13 @@ export default function BikeMarker({
 		setError('');
 	};
 
+	// POINT ON USER'S RENTED BIKE
 	const goToMyBike = () => {
 		map.closePopup();
 		map.flyTo([myBikeData.lat, myBikeData.lng], 17);
 	};
 
+	// REFRESH MARKERS ON MAP
 	const updateBikeData = (newBike) => {
 		const index = bikes.findIndex((bike) => bike._id === newBike._id);
 		if (index >= 0) {
@@ -93,6 +95,7 @@ export default function BikeMarker({
 		}
 	};
 
+	// PRIMARY BUTTON HANDLER
 	const handleButtonClick = ({ bikeID, isReturning }) => {
 		rentBike({ bikeID, isReturning })
 			.then((response) => {
@@ -102,10 +105,12 @@ export default function BikeMarker({
 			})
 			.catch((err) => {
 				if (err.status === 401) {
+					setError(err.data);
 					setLoginLink(true);
+				} else {
+					setError(err.data.message);
+					setMyBikeData(err.data.myBike);
 				}
-				setError(err.data.message);
-				setMyBikeData(err.data.myBike || null);
 			});
 	};
 

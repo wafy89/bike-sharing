@@ -14,11 +14,13 @@ function App() {
 	const [isRegister, setIsRegister] = useState(false);
 
 	useEffect(() => {
+		// CHECL IF USER SESSION STILL VALID
 		checkAuthentication().then((data) => {
 			if (data && data.authenticated) {
 				setLoggedIn(true);
 			}
 		});
+
 		getAllBikes()
 			.then((data) => {
 				setBikes(data);

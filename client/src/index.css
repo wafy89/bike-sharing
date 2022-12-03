@@ -13,9 +13,10 @@ code {
 }
 
 :root {
-	--primary-color: #82dfe1;
-	--secondary-color: #5e5159;
+	--primary-color: #00ddce;
+	--secondary-color: #cb8ebc;
+	--focus-color: #fab7e9;
 }
 :root * {
-	outline-color: var(--primary-color);
+	outline-color: var(--focus-color);
 }

@@ -9,6 +9,7 @@
 	overflow: hidden;
 	height: 80px;
 	z-index: 6;
+	box-shadow: 0px 1px 14px -2px var(--secondary-color);
 }
 .header-navbar {
 	width: 100%;

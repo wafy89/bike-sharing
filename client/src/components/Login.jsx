@@ -14,10 +14,10 @@ function Login({
 	isRegister,
 	setIsRegister,
 }) {
-	const [showPassword, setShowPassword] = useState(false);
-	const [closeModule, setCloseModule] = useState(false);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [showPassword, setShowPassword] = useState(false);
+	const [closeModule, setCloseModule] = useState(false);
 
 	const handelClosing = () => {
 		setTimeout(() => {
@@ -33,7 +33,7 @@ function Login({
 		const requestType = isRegister ? 'register' : 'login';
 
 		authenticate({ requestType, email, password })
-			.then((data) => {
+			.then(() => {
 				setLoggedIn(true);
 				handelClosing();
 			})
@@ -41,7 +41,7 @@ function Login({
 				setError(err);
 			});
 	};
-
+	// ALLOW CLOSING LOGIN WITH ESC KEY
 	const handleESCPress = (event) => {
 		const { keyCode } = event;
 		if (keyCode === 27) {

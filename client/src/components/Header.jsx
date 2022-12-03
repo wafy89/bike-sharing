@@ -52,15 +52,15 @@ function Header({
 		setIsLoginOpened(true);
 	};
 
-	// allow navigating with arrow keys
+	// ALLOW NAVIGATION WITH ARROW KEYS
 	const handleArrowKeyPress = (event) => {
 		if (!openHeader) return;
 		const { keyCode } = event;
 		if (keyCode === 37) {
-			if (focus < 2) return;
+			if (focus < 2) return; // focus on first element
 			headerRef.current.querySelector(`#focus-item-${focus - 1}`).focus();
 		} else if (keyCode === 39) {
-			if (focus > 2) return;
+			if (focus > 2) return; // focus on lsat element
 			headerRef.current.querySelector(`#focus-item-${focus + 1}`).focus();
 		}
 	};

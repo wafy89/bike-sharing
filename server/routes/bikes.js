@@ -39,7 +39,9 @@ router.put('/rent/:bikeID', async (req, res) => {
 	const bike = await Bike.findById(bikeID);
 	// check if bike is available
 	if (bike.rented) {
-		return res.status(403).send({ message: 'Bike is already rented' });
+		return res
+			.status(403)
+			.send({ message: 'Bike is already rented', myBike: null });
 	} else {
 		// rent the bike
 		bike.rented = true;
