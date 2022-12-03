@@ -1,6 +1,6 @@
 import '../styles/BikeMarker.css';
 import { useRef, useEffect, useState } from 'react';
-import { Marker, Popup } from 'react-leaflet';
+import { Marker, Popup, useMapEvents } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import redMarkerSvg from '../assets/redMarkerIcon.svg';
 import greyMarkerSvg from '../assets/greyMarkerIcon.svg';
@@ -8,18 +8,18 @@ import Button from './Button';
 import { rentBike } from '../utils/api';
 
 // generate marker Icons
-const redIcon = new Icon({
+const redIconOptions = {
 	iconUrl: redMarkerSvg,
 	iconAnchor: [5, 55],
 	popupAnchor: [10, -44],
 	iconSize: [50, 50],
-});
-const greyIcon = new Icon({
+};
+const greyIconOptions = {
 	iconUrl: greyMarkerSvg,
 	iconAnchor: [5, 55],
 	popupAnchor: [10, -44],
 	iconSize: [50, 50],
-});
+};
 
 export default function BikeMarker({
 	bike,
@@ -31,16 +31,31 @@ export default function BikeMarker({
 	const [loginLink, setLoginLink] = useState(false);
 
 	// CLOSE POPUP FUNCTIONALITY
-	const popupRef = useRef(null);
-	const closePopup = () => {
-		if (!popupRef.current || !popupRef.current._closeButton) return;
-		popupRef.current._closeButton.click();
-	};
+	const [refVisible, setRefVisible] = useState(false);
+	const buttonRef = useRef(null);
+	const map = useMapEvents({
+		popupclose(popup) {
+			setError('');
+			setLoginLink('');
+
+			// setting focus on source marker ( dosen't work when rent bike triggered because the icon is changed )
+			popup.popup._source._icon.focus();
+		},
+	});
+
+	useEffect(() => {
+		//force focus on button if buttonRef === null
+		if (refVisible) {
+			buttonRef.current.focus();
+		}
+
+		//return setRefVisible(false);
+	}, [refVisible]);
 
 	const handleESCPress = (event) => {
 		const { keyCode } = event;
 		if (keyCode === 27) {
-			closePopup();
+			map.closePopup();
 		}
 	};
 
@@ -75,7 +90,7 @@ export default function BikeMarker({
 		rentBike({ bikeID, isReturning })
 			.then((response) => {
 				updateBikeData(response);
-				closePopup();
+				map.closePopup();
 				setError('');
 			})
 			.catch((err) => {
@@ -89,9 +104,9 @@ export default function BikeMarker({
 	return (
 		<Marker
 			position={[bike.lat, bike.lng]}
-			icon={bike.rented ? greyIcon : redIcon}
+			icon={new Icon(bike.rented ? greyIconOptions : redIconOptions)}
 		>
-			<Popup ref={popupRef}>
+			<Popup>
 				<div className="popup">
 					<section className="details">
 						<h2 className="details-header">{`Bike  >${bike.name}<`}</h2>
@@ -112,7 +127,6 @@ export default function BikeMarker({
 											onClick={() => openLogin(true)}
 											className="login-link"
 											role="button"
-											tabIndex={0}
 											href="#"
 										>
 											Login?
@@ -123,6 +137,10 @@ export default function BikeMarker({
 						)}
 					</section>
 					<Button
+						ref={(el) => {
+							buttonRef.current = el;
+							setRefVisible(true);
+						}}
 						title={bike.rented ? 'Return Bike' : 'Rent Bike'}
 						onClick={() =>
 							handleButtonClick({ bikeID: bike._id, isReturning: bike.rented })
