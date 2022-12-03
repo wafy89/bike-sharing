@@ -1,0 +1,27 @@
+.popup {
+	display: flex;
+	flex-direction: column;
+	line-height: normal;
+}
+
+.details-header {
+	line-height: 50px;
+	color: var(--secodary-color);
+	margin: 0;
+}
+.details-status {
+	font-size: 16px;
+	color: var(--secodary-color);
+	font-weight: 500;
+}
+.details-error {
+	color: red;
+}
+.popup ol {
+	line-height: 20px;
+	color: var(--secodary-color);
+}
+.login-link {
+	display: inline-block;
+	color: var(--secodary-color);
+}
