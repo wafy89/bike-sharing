@@ -18,5 +18,6 @@ code {
 	--focus-color: #fab7e9;
 }
 :root * {
-	outline-color: var(--focus-color);
+	outline-color: rgb(187, 187, 187);
+	outline-offset: -1px;
 }

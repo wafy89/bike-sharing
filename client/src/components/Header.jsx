@@ -108,7 +108,7 @@ function Header({
 							aria-label="signup"
 							href="#"
 						>
-							signup
+							SIGNUP
 						</a>
 					</li>
 					<li className="header-nav-item">
@@ -123,7 +123,7 @@ function Header({
 								aria-label="logout"
 								href="#"
 							>
-								logout
+								LOGOUT
 							</a>
 						) : (
 							<a
@@ -136,7 +136,7 @@ function Header({
 								aria-label="login"
 								href="#"
 							>
-								login
+								LOGIN
 							</a>
 						)}
 					</li>
