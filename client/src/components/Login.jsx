@@ -89,19 +89,23 @@ function Login({
 					<div className="form-content">
 						<div className="form-field">
 							<label
-								className="form-content-label"
 								htmlFor="email"
+								className="form-content-label"
+							>
+								EMAIL
+							</label>
+							<span
+								className="form-content-icon"
 								aria-label="email"
 							>
 								<TfiEmail aria-label="email-icon" />
-							</label>
+							</span>
 							<input
 								id="email"
 								className="form-content-input"
 								type="email"
 								name="email"
 								aria-label="email input"
-								placeholder="EMAIL"
 								required
 								autoFocus={true}
 								value={email}
@@ -111,30 +115,32 @@ function Login({
 
 						<div className="form-field">
 							<label
-								className="form-content-label"
 								htmlFor="password"
-								aria-label="password"
+								className="form-content-label"
 							>
-								<TfiLock
-									aria-label="email-icon"
-									h
-								/>
+								PASSWORD
 							</label>
+							<span
+								className="form-content-icon"
+								htmlFor="password"
+							>
+								<TfiLock aria-label="email-icon" />
+							</span>
 							<input
 								id="password"
+								required
 								className="form-content-input"
 								type={showPassword ? 'text' : 'password'}
 								name="password"
-								aria-label="password input"
+								aria-label="password"
 								value={password}
-								placeholder="PASSWORD"
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 							<BiShowAlt
 								onClick={() => {
 									setShowPassword(!showPassword);
 								}}
-								aria-label="show password icon"
+								aria-label="show password"
 								color="#b39bab"
 								size={25}
 								className="show-icon"
@@ -142,13 +148,15 @@ function Login({
 						</div>
 					</div>
 					{error && <p className="form-error">{error}</p>}
-					<div className="form-actions">
+					<div
+						className="form-actions"
+						aria-label="form actions"
+					>
 						<Button title={isRegister ? 'Signup' : 'Login'} />
 						<a
 							onClick={() => setIsRegister(!isRegister)}
 							className="regisler-link"
 							role="button"
-							tabIndex={0}
 							href="#"
 						>
 							{`${
