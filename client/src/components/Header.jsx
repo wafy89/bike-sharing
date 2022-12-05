@@ -14,6 +14,7 @@ function Header({
 	const [openHeader, setOpenHeader] = useState(true);
 	const [animationStatus, setAnimationStatus] = useState('');
 	const [focus, setFocus] = useState(null);
+	const [isSmallScreen, setIsSmallScreen] = useState(null);
 
 	const headerRef = useRef(null);
 
@@ -56,26 +57,51 @@ function Header({
 	const handleArrowKeyPress = (event) => {
 		if (!openHeader) return;
 		const { keyCode } = event;
-		if (keyCode === 37) {
-			if (focus < 2) return; // focus on first element
-			headerRef.current.querySelector(`#focus-item-${focus - 1}`).focus();
-		} else if (keyCode === 39) {
-			if (focus > 2) return; // focus on lsat element
-			headerRef.current.querySelector(`#focus-item-${focus + 1}`).focus();
+		if (isSmallScreen) {
+			if (keyCode === 38) {
+				if (focus < 1) return; // focus on first element
+				headerRef.current.querySelector(`#focus-item-${focus - 1}`).focus();
+			} else if (keyCode === 40) {
+				if (focus > 1) return; // focus on lsat element
+				headerRef.current.querySelector(`#focus-item-${focus + 1}`).focus();
+			}
+		} else {
+			if (keyCode === 37) {
+				if (focus < 2) return; // focus on first element
+				headerRef.current.querySelector(`#focus-item-${focus - 1}`).focus();
+			} else if (keyCode === 39) {
+				if (focus > 2) return; // focus on lsat element
+				headerRef.current.querySelector(`#focus-item-${focus + 1}`).focus();
+			}
 		}
 	};
 	useEffect(() => {
+		function handleResize() {
+			// Set window width/height to state
+			if (window.innerWidth < 600) {
+				setIsSmallScreen(true);
+			} else {
+				setIsSmallScreen(false);
+			}
+		}
+		// Add event listener
+		window.addEventListener('resize', handleResize);
+		// Call handler right away so state gets updated with initial window size
+		handleResize();
+
 		// close popup with escape key
 		window.addEventListener('keydown', handleArrowKeyPress);
+
 		//cleanup
 		return () => {
 			window.removeEventListener('keydown', handleArrowKeyPress);
+			window.removeEventListener('resize', handleResize);
 		};
 	}, [handleArrowKeyPress]);
 
 	return (
 		<header
-			className="header"
+			className={openHeader ? 'header open' : 'header'}
 			ref={headerRef}
 		>
 			<nav
@@ -128,7 +154,7 @@ function Header({
 						) : (
 							<a
 								onFocus={() => setFocus(2)}
-								id="focus-item-2"
+								id={'focus-item-2'}
 								className="header-nav-link"
 								onClick={() => openDialog({ register: false })}
 								name="login"
@@ -143,12 +169,13 @@ function Header({
 				</ul>
 			</nav>
 			<button
-				onFocus={() => setFocus(3)}
-				id="focus-item-3"
+				onFocus={() => {
+					isSmallScreen ? setFocus(0) : setFocus(3);
+				}}
+				id={isSmallScreen ? 'focus-item-0' : 'focus-item-3'}
 				className="burger-menu"
 				name="burger-menu"
 				onClick={switchOpen}
-				tabIndex={0}
 			>
 				<IoFilterCircleSharp
 					className={

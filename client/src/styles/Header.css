@@ -43,7 +43,6 @@
 	background-color: var(--secondary-color);
 	transition: all 0.5s linear;
 	height: 100%;
-	opacity: 0;
 }
 .header-navbar-menu.open {
 	width: calc(
@@ -115,15 +114,19 @@
 
 /* FOR SMALL SCREENS  */
 @media only screen and (max-width: 600px) {
-	.header-navbar-menu.open {
+	.header-navbar-menu {
 		padding-top: 100px;
 		width: 100vw;
 		height: 100%;
 		position: fixed;
-		right: 0;
+		right: -110vw;
 		top: 60px;
 		align-items: center;
 		flex-direction: column;
+	}
+	.header-navbar-menu.open {
+		right: 0;
+		width: 100vw;
 	}
 	.header {
 		width: 100vw;
