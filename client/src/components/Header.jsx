@@ -11,7 +11,7 @@ function Header({
 	setLoggedIn,
 	setError,
 }) {
-	const [openHeader, setOpenHeader] = useState(true);
+	const [openHeader, setOpenHeader] = useState(false);
 	const [animationStatus, setAnimationStatus] = useState('');
 	const [focus, setFocus] = useState(null);
 	const [isSmallScreen, setIsSmallScreen] = useState(null);
@@ -58,6 +58,7 @@ function Header({
 		if (!openHeader) return;
 		const { keyCode } = event;
 		if (isSmallScreen) {
+			// small screen items are vertical (up , down keys)
 			if (keyCode === 38) {
 				if (focus < 1) return; // focus on first element
 				headerRef.current.querySelector(`#focus-item-${focus - 1}`).focus();
@@ -77,7 +78,7 @@ function Header({
 	};
 	useEffect(() => {
 		function handleResize() {
-			// Set window width/height to state
+			// check screen size
 			if (window.innerWidth < 600) {
 				setIsSmallScreen(true);
 			} else {
@@ -86,7 +87,7 @@ function Header({
 		}
 		// Add event listener
 		window.addEventListener('resize', handleResize);
-		// Call handler right away so state gets updated with initial window size
+		// get initiall value
 		handleResize();
 
 		// close popup with escape key
@@ -172,7 +173,7 @@ function Header({
 				onFocus={() => {
 					isSmallScreen ? setFocus(0) : setFocus(3);
 				}}
-				id={isSmallScreen ? 'focus-item-0' : 'focus-item-3'}
+				id={isSmallScreen ? 'focus-item-0' : 'focus-item-3'} // in small screen burger menu on the top ( first index )
 				className="burger-menu"
 				name="burger-menu"
 				onClick={switchOpen}

@@ -39,7 +39,7 @@ export default function BikeMarker({
 		if (refVisible) {
 			buttonRef.current.focus();
 		}
-	}, [refVisible]);
+	}, [refVisible]); // refVisible will be updated by rendering
 
 	// UPDATE CLOSE POPUP FUNCTION
 	const map = useMapEvents({
@@ -105,10 +105,12 @@ export default function BikeMarker({
 			})
 			.catch((err) => {
 				if (err.status === 401) {
+					// show login link
 					setError(err.data);
 					setLoginLink(true);
 				} else {
 					setError(err.data.message);
+					// show take me to my bike link
 					setMyBikeData(err.data.myBike);
 				}
 			});
