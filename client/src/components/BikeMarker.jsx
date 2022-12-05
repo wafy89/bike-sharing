@@ -138,8 +138,8 @@ export default function BikeMarker({
 									<a
 										onClick={() => openLogin(true)}
 										className="login-link"
-										role="button"
 										href="#"
+										tabIndex={0}
 									>
 										Login?
 									</a>
@@ -149,8 +149,8 @@ export default function BikeMarker({
 									<a
 										onClick={goToMyBike}
 										className="login-link"
-										role="button"
 										href="#"
+										tabIndex={0}
 									>
 										Take me to my bike
 									</a>

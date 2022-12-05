@@ -6,6 +6,7 @@ const Button = forwardRef(({ onClick, title }, ref) => (
 		onClick={onClick}
 		className="button"
 		type="submit"
+		id="submit"
 		ref={ref}
 	>
 		{title}
