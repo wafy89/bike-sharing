@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # bike-sharing
 
 =======
@@ -67,6 +65,3 @@
 ```sh
 > npm start
 ```
-
-> > > > > > > master
-> > > > > > > master
